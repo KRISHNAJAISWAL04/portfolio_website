@@ -14,10 +14,10 @@ jobs:
           host: ${{secrets.HOST_SECRET}}
           username: ubuntu
           key: ${{secrets.SSH_KEY}}
-          run: |
-          cd ~/projects/portfolio_website
-          git pull origin main
-          docker stop portfolio || true
-          docker rm portfolio || true
-          docker build -t portfolio .
-          docker run -d -p 80:5000 --name portfolio portfolio
+          script: |
+           cd ~/projects/portfolio_website
+           git pull origin main
+           docker stop portfolio || true
+           docker rm portfolio || true
+           docker build -t portfolio .
+           docker run -d -p 80:5000 --name portfolio portfolio
