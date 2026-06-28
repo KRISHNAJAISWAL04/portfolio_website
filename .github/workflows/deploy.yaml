@@ -15,11 +15,11 @@ jobs:
           username: ubuntu
           key: ${{secrets.SSH_KEY}}
           script: |
-           set -e  # <-- This stops the script immediately if ANY command fails!
+            set -e
             cd ~/projects/portfolio_website
-            git fetch origin main
-            git reset --hard origin/main  # <-- Forces the server to match GitHub exactly
+            git fetch origin main              # Fetches the changes from GitHub
+            git reset --hard origin/main       # Overwrites local state with GitHub code
             docker stop portfolio || true
             docker rm portfolio || true
-            docker build --no-cache -t portfolio .  # <-- Prevents Docker from using old cache
+            docker build --no-cache -t portfolio .
             docker run -d -p 80:5000 --name portfolio portfolio
